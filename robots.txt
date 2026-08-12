@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://regrow-ai.netlify.app/sitemap.xml

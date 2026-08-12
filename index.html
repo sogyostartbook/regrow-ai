@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>document.documentElement.className+=' js';</script>
+<title>Regrow｜あなたの会社専用の業務自動化ツール、作ります。</title>
+<meta name="description" content="毎日の手作業（転記・集計・メール・リマインド）を、御社専用の自動化ツールに。初期5万円〜・最短1〜2週間で納品。Excel・スプレッドシートはそのままでOK。">
+<link rel="canonical" href="https://regrow-ai.netlify.app/">
+<meta name="theme-color" content="#22b2c4">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Regrow｜あなたの会社専用の業務自動化ツール、作ります。">
+<meta property="og:description" content="毎日の手作業を、専用ツールに変える。初期5万円〜・最短1〜2週間納品。Excel・スプレッドシートはそのままでOK。">
+<meta property="og:locale" content="ja_JP">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#2f4858;--navy-deep:#24404d;--navy-soft:#3b5a6a;
+    --accent:#22b2c4;--accent-dark:#1a97a8;--accent2:#ef8a86;
+    --ink:#333333;--muted:#6d7883;--line:#e7ecef;--bg:#fff;--bg-soft:#f4f9fa;--bg-navy:#2a4653;
+    --radius:16px;--shadow:0 18px 50px -22px rgba(45,80,95,.26);--shadow-sm:0 8px 24px -14px rgba(45,80,95,.2);--maxw:1140px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:78px}
+  body{font-family:"游ゴシック体",YuGothic,"游ゴシック Medium","Yu Gothic Medium","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;color:var(--ink);background:var(--bg);line-height:1.9;-webkit-font-smoothing:antialiased;font-size:16px;font-weight:400}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .eng{font-family:"Plus Jakarta Sans","游ゴシック体",sans-serif;letter-spacing:.04em}
+  .btn{display:inline-flex;align-items:center;gap:.5em;justify-content:center;padding:15px 30px;border-radius:999px;font-weight:700;font-size:15px;transition:transform .15s,box-shadow .15s,background .15s;cursor:pointer;border:none;line-height:1;white-space:nowrap}
+  .btn-primary{background:var(--accent);color:#fff;box-shadow:0 12px 28px -10px rgba(34,178,196,.5)}
+  .btn-primary:hover{background:var(--accent-dark);transform:translateY(-2px)}
+  .btn-outline{background:#fff;color:var(--navy);border:1.5px solid var(--line)}
+  .btn-outline:hover{border-color:var(--navy);transform:translateY(-2px)}
+  header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s,box-shadow .2s}
+  header.scrolled{border-color:var(--line);box-shadow:0 6px 24px -18px rgba(20,33,59,.5)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:70px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+  .brand .mark{width:34px;height:34px;border-radius:9px;flex:none;background:linear-gradient(135deg,var(--navy),var(--accent));display:grid;place-items:center;color:#fff;font-family:"Plus Jakarta Sans";font-weight:700;font-size:15px}
+  .brand b{font-size:15px;line-height:1.2}
+  .brand span{display:block;font-size:11px;color:var(--muted);font-weight:500}
+  .menu{display:flex;align-items:center;gap:26px}
+  .menu a.link{font-size:14px;font-weight:500;color:var(--ink);transition:color .15s}
+  .menu a.link:hover{color:var(--accent)}
+  .menu .btn{padding:11px 22px;font-size:14px}
+  .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
+  .burger span{width:24px;height:2px;background:var(--ink);border-radius:2px;transition:.25s}
+  .hero{position:relative;color:var(--ink);overflow:hidden;background:linear-gradient(155deg,#e6f6f8 0%,#ffffff 48%,#fdeeed 100%);border-bottom:1px solid var(--line);padding:148px 0 96px}
+  .hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(640px 440px at 90% 2%,rgba(34,178,196,.22),transparent 62%),radial-gradient(520px 360px at 4% 100%,rgba(239,138,134,.16),transparent 60%)}
+  .hero .wrap{position:relative;z-index:1}
+  .hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:48px;align-items:center}
+  .tagline{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--navy);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-sm);padding:7px 16px;border-radius:999px;margin-bottom:24px}
+  .tagline .dot{width:7px;height:7px;border-radius:50%;background:var(--accent2)}
+  .hero h1{font-size:clamp(30px,4.2vw,50px);line-height:1.34;font-weight:600;color:var(--navy)}
+  .hero h1 .hl{color:var(--accent)}
+  .hero p.lead{margin:22px 0 12px;font-size:17px;color:var(--muted);max-width:540px}
+  .hero .price-pill{display:inline-flex;align-items:center;gap:10px;margin:14px 0 30px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-sm);padding:10px 18px;border-radius:12px;font-size:14px}
+  .hero .price-pill b{font-family:"Plus Jakarta Sans";font-size:18px;color:var(--navy)}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-right{display:grid;gap:18px}
+  .hero-photo{width:100%;height:210px;border-radius:20px;box-shadow:var(--shadow);background:linear-gradient(135deg,#22b2c4 0%,#8ad6de 45%,#f4aca6 100%);position:relative;overflow:hidden}
+  .hero-photo::after{content:"";position:absolute;inset:0;background:radial-gradient(240px 180px at 78% 22%,rgba(255,255,255,.4),transparent 60%),radial-gradient(200px 160px at 20% 85%,rgba(255,255,255,.22),transparent 60%)}
+  .ba-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow)}
+  .ba-card h3{font-size:13px;color:var(--muted);font-weight:700;margin-bottom:16px;letter-spacing:.05em}
+  .ba-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px dashed var(--line)}
+  .ba-row:last-child{border-bottom:none}
+  .ba-row .lab{font-size:13px;font-weight:700}
+  .ba-row .val{font-family:"Plus Jakarta Sans";font-weight:700;font-size:15px;color:var(--navy);white-space:nowrap}
+  .ba-row .val s{color:var(--muted);font-weight:600;margin-right:4px}
+  .ba-row .val b{color:var(--accent)}
+  section{padding:90px 0}
+  .sec-head{text-align:center;max-width:730px;margin:0 auto 54px}
+  .kicker{font-family:"Plus Jakarta Sans";font-weight:700;font-size:13px;letter-spacing:.16em;color:var(--accent);text-transform:uppercase;margin-bottom:14px}
+  .sec-head h2{font-size:clamp(24px,3.2vw,34px);font-weight:600;line-height:1.4}
+  .sec-head p{margin-top:16px;color:var(--muted);font-size:15px}
+  .bg-soft{background:var(--bg-soft)}
+  .js .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s,transform .6s}
+  .reveal.in{opacity:1;transform:none}
+  .btn:focus-visible,.menu a:focus-visible,.faq-item summary:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+  @media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}.js .reveal{opacity:1;transform:none}}
+  .cards{display:grid;gap:22px}
+  .c3{grid-template-columns:repeat(3,1fr)}
+  .c4{grid-template-columns:repeat(4,1fr)}
+  .c2{grid-template-columns:repeat(2,1fr)}
+  .prob{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow-sm);transition:transform .2s ease,box-shadow .2s ease}
+  .prob:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+  .prob .ic{margin-bottom:16px;line-height:0;color:var(--accent)}
+  .prob .ic svg{width:30px;height:30px}
+  .prob h4{font-size:16px;font-weight:700;margin-bottom:8px}
+  .prob p{font-size:14px;color:var(--muted)}
+  .svc-block{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  .svc-pane{border-radius:22px;padding:36px;color:#fff;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+  .svc-pane.a{background:linear-gradient(155deg,#1d3f8f,#2f6df0)}
+  .svc-pane.b{background:linear-gradient(155deg,#0e2a5e,#1a4fae)}
+  .svc-pane .badge{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;background:rgba(255,255,255,.18);padding:6px 14px;border-radius:999px;margin-bottom:18px}
+  .svc-pane h3{font-size:23px;font-weight:600;margin-bottom:6px}
+  .svc-pane .sub{font-size:14px;color:rgba(255,255,255,.85);margin-bottom:22px}
+  .svc-pane ul{list-style:none;display:grid;gap:12px}
+  .svc-pane li{display:flex;gap:12px;align-items:flex-start;font-size:15px;font-weight:500}
+  .svc-pane li .ck{flex:none;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.22);display:grid;place-items:center;font-size:13px;margin-top:3px}
+  .svc-pane .big{position:absolute;right:-8px;bottom:-16px;font-size:110px;opacity:.12}
+  .band{position:relative;padding:92px 0;color:var(--ink);overflow:hidden}
+  .band-bg{position:absolute;inset:0;background:linear-gradient(120deg,#e6f6f8,#f6fbfc 50%,#fdeeed)}
+  .band-inner{position:relative;text-align:center;max-width:780px}
+  .band-inner h2{font-size:clamp(22px,3vw,32px);font-weight:600;line-height:1.5;margin-bottom:16px;color:var(--navy)}
+  .band-inner p{color:var(--muted);font-size:15px;margin-bottom:28px}
+  /* ===== compare table ===== */
+  .vs-wrap{max-width:900px;margin:0 auto;overflow-x:auto}
+  table.vs{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-sm);min-width:800px}
+  table.vs th,table.vs td{padding:16px 18px;font-size:14px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+  table.vs tr:last-child th,table.vs tr:last-child td{border-bottom:none}
+  table.vs thead th{font-size:15px;font-weight:600;padding:18px}
+  table.vs thead th:nth-child(2),table.vs thead th:nth-child(3),table.vs thead th:nth-child(4){background:var(--bg-soft);color:var(--muted)}
+  table.vs thead th:nth-child(5){background:var(--accent);color:#fff}
+  table.vs tbody th{background:var(--bg-soft);font-weight:700;text-align:left;width:160px;font-size:13px}
+  table.vs td.haken{color:var(--muted)}
+  table.vs td.oma{font-weight:700;color:var(--navy);background:rgba(47,109,240,.05)}
+  table.vs td .good{color:var(--accent);font-weight:700}
+  /* ===== vision ===== */
+  .vision{position:relative;overflow:hidden;background:linear-gradient(160deg,#e6f6f8 0%,#f6fbfc 45%,#fdeeed 100%);color:var(--ink);padding:96px 0}
+  .vision::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(560px 360px at 88% 8%,rgba(34,178,196,.16),transparent 60%),radial-gradient(460px 320px at 6% 96%,rgba(239,138,134,.14),transparent 60%)}
+  .vision .wrap{position:relative;z-index:1;text-align:center;max-width:860px}
+  .vision .vk{font-family:"Plus Jakarta Sans";font-weight:700;letter-spacing:.18em;font-size:13px;color:var(--accent);text-transform:uppercase;margin-bottom:22px}
+  .vision h2{font-size:clamp(26px,4vw,42px);font-weight:600;line-height:1.5;margin-bottom:26px;color:var(--navy)}
+  .vision h2 .hl{color:var(--accent)}
+  .vision p.v-lead{font-size:16px;color:var(--muted);line-height:2;max-width:680px;margin:0 auto 40px}
+  .vision .beliefs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+  .vision .belief{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px 20px;box-shadow:var(--shadow-sm)}
+  .vision .belief .bi{margin-bottom:14px;line-height:0;color:var(--accent)}
+  .vision .belief .bi svg{width:32px;height:32px}
+  .hero .price-pill .pill-ic{width:16px;height:16px;color:var(--accent);flex:none}
+  .vision .belief b{display:block;font-size:15px;margin-bottom:6px;color:var(--navy)}
+  .vision .belief span{font-size:13px;color:var(--muted);line-height:1.8}
+  @media(max-width:760px){.vision .beliefs{grid-template-columns:1fr}}
+  /* ===== trust (anxiety→answer) ===== */
+  .trust{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 26px;box-shadow:var(--shadow-sm);border-top:3px solid var(--line);display:flex;flex-direction:column}
+  .trust.hot{border-top-color:var(--accent);box-shadow:var(--shadow)}
+  .trust .badge2{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.05em;color:#fff;background:var(--accent);padding:3px 12px;border-radius:999px;align-self:flex-start;margin-bottom:14px}
+  .trust .q{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:12px;line-height:1.5}
+  .trust .q .mk{color:var(--muted);font-family:"Plus Jakarta Sans";font-weight:700;margin-right:6px}
+  .trust .a{font-size:14px;color:var(--muted);line-height:1.95;border-top:1px dashed var(--line);padding-top:14px}
+  .trust .a .lead2{color:var(--accent);font-weight:700;display:block;margin-bottom:4px}
+  .trust .a b{color:var(--navy)}
+  /* ===== simulator ===== */
+  .sim-box{max-width:760px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:22px;padding:36px 32px;box-shadow:var(--shadow)}
+  .sim-row{margin-bottom:26px}
+  .sim-row label{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;font-weight:700;margin-bottom:10px}
+  .sim-row label output{font-family:"Plus Jakarta Sans";font-size:20px;font-weight:700;color:var(--accent)}
+  .sim-row input[type=range]{width:100%;accent-color:var(--accent);height:6px;cursor:pointer}
+  .sim-result{background:var(--bg-navy);color:#fff;border-radius:16px;padding:24px;text-align:center}
+  .sim-result .lab{font-size:13px;color:#9fb2d2;margin-bottom:6px}
+  .sim-result .big{font-family:"Plus Jakarta Sans";font-size:clamp(28px,4vw,40px);font-weight:700;line-height:1.2}
+  .sim-result .big span{color:#7fb0ff}
+  .sim-result .sub{font-size:13px;color:#c6d2e6;margin-top:10px}
+  .sim-note{text-align:center;font-size:12px;color:var(--muted);margin-top:14px}
+  .result{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px 26px;box-shadow:var(--shadow-sm);text-align:center}
+  .result .who{font-size:12px;font-weight:700;color:#fff;background:var(--navy);display:inline-block;padding:4px 12px;border-radius:999px;margin-bottom:16px}
+  .result .task{font-size:15px;font-weight:700;margin-bottom:14px;min-height:44px}
+  .result .ba{font-family:"Plus Jakarta Sans";font-weight:700;font-size:22px;color:var(--navy);line-height:1.2}
+  .result .ba s{color:var(--muted);font-weight:600;font-size:16px}
+  .result .ba .ar{color:var(--accent);margin:0 6px}
+  .result .cut{margin-top:10px;display:inline-block;font-size:13px;font-weight:700;color:#fff;background:var(--accent);padding:4px 14px;border-radius:999px}
+  .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1000px;margin:0 auto}
+  .price-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:32px 26px;box-shadow:var(--shadow-sm);position:relative;display:flex;flex-direction:column}
+  .price-card.featured{border:2px solid var(--accent);box-shadow:var(--shadow)}
+  .price-card .rec{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:12px;font-weight:700;padding:4px 16px;border-radius:999px;white-space:nowrap}
+  .price-card .tag{font-family:"Plus Jakarta Sans";font-weight:700;letter-spacing:.08em;font-size:12px;color:var(--accent);text-transform:uppercase}
+  .price-card .amt{font-family:"Plus Jakarta Sans";font-weight:700;font-size:34px;color:var(--navy);margin:8px 0 4px;line-height:1}
+  .price-card .amt small{font-size:15px;color:var(--muted);font-weight:600}
+  .price-card .note{font-size:13px;color:var(--muted);margin-bottom:18px}
+  .price-card ul{list-style:none;display:grid;gap:10px;border-top:1px solid var(--line);padding-top:18px;margin-bottom:20px}
+  .price-card li{display:flex;gap:10px;font-size:14px;align-items:flex-start}
+  .price-card li .ck{color:var(--accent);font-weight:700;flex:none}
+  .price-card .btn{margin-top:auto;width:100%}
+  .price-note{max-width:1000px;margin:22px auto 0;text-align:center;font-size:13px;color:var(--muted)}
+  .price-banner{max-width:1000px;margin:26px auto 0;text-align:center;background:var(--bg-navy);color:#fff;border-radius:16px;padding:22px 26px;font-weight:700;font-size:16px}
+  .price-banner span{color:#ffb4a8}
+  .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:step}
+  .step{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 22px;box-shadow:var(--shadow-sm)}
+  .step .n{counter-increment:step;font-family:"Plus Jakarta Sans";font-weight:700;color:#fff;width:38px;height:38px;border-radius:50%;background:var(--navy);display:grid;place-items:center;margin-bottom:14px;font-size:10px;letter-spacing:.05em}
+  .step .n::before{content:"STEP " counter(step)}
+  .step h4{font-size:16px;font-weight:700;margin-bottom:6px}
+  .step p{font-size:13px;color:var(--muted)}
+  .faq-list{max-width:820px;margin:0 auto;display:grid;gap:14px}
+  .faq-item{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-sm);overflow:hidden}
+  .faq-item summary{list-style:none;cursor:pointer;padding:20px 24px;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:color .15s}
+  .faq-item summary::-webkit-details-marker{display:none}
+  .faq-item summary:hover{color:var(--accent)}
+  .faq-item summary::after{content:"＋";font-family:"Plus Jakarta Sans";font-weight:700;font-size:20px;color:var(--accent);flex:none}
+  .faq-item[open] summary::after{content:"−"}
+  .faq-a{padding:0 24px 22px;font-size:14px;color:var(--muted);line-height:1.9}
+  .contact{background:var(--bg-soft)}
+  .contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:40px;align-items:start}
+  .contact-info{display:grid;gap:18px}
+  .ci-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 24px;box-shadow:var(--shadow-sm)}
+  .ci-card .lab{font-size:12px;color:var(--muted);letter-spacing:.08em;margin-bottom:6px}
+  .ci-card .val{font-size:18px;font-weight:700;font-family:"Plus Jakarta Sans";color:var(--navy)}
+  .ci-card .val.small{font-size:15px;font-family:"Noto Sans JP"}
+  form.cf{background:#fff;border:1px solid var(--line);border-radius:20px;padding:32px;box-shadow:var(--shadow)}
+  .field{margin-bottom:18px}
+  .field label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}
+  .field label .req{color:var(--accent2);font-size:11px;margin-left:4px}
+  .field input,.field textarea{width:100%;padding:13px 15px;border:1.5px solid var(--line);border-radius:10px;font-family:inherit;font-size:15px;background:var(--bg-soft);transition:border-color .15s,background .15s}
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--accent);background:#fff}
+  .field textarea{resize:vertical;min-height:110px}
+  form.cf .btn{width:100%;margin-top:6px}
+  form.cf .privacy{font-size:12px;color:var(--muted);margin-top:14px;text-align:center}
+  .company-table{max-width:760px;margin:0 auto;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  .company-table dl{display:grid;grid-template-columns:200px 1fr;border-bottom:1px solid var(--line)}
+  .company-table dl:last-child{border-bottom:none}
+  .company-table dt{background:var(--bg-soft);padding:18px 24px;font-weight:700;font-size:14px}
+  .company-table dd{padding:18px 24px;font-size:14px}
+  .ph{background:#fff3c4;color:#8a6d00;padding:0 6px;border-radius:4px;font-weight:700;font-size:.92em}
+  footer{background:#fff;color:var(--muted);padding:50px 0 30px;border-top:1px solid var(--line)}
+  .foot-top{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-start;margin-bottom:30px}
+  .foot-brand b{color:var(--navy);font-size:16px}
+  .foot-brand p{font-size:13px;margin-top:8px;max-width:340px}
+  .foot-nav{display:flex;gap:26px;flex-wrap:wrap}
+  .foot-nav a{font-size:13px;transition:color .15s}
+  .foot-nav a:hover{color:var(--accent)}
+  .foot-bottom{border-top:1px solid var(--line);padding-top:20px;font-size:12px;text-align:center}
+  .float-cta{position:fixed;right:22px;bottom:22px;z-index:90}
+  @media(max-width:960px){.hero-grid{grid-template-columns:1fr;gap:36px}.hero-right{order:2}.contact-grid{grid-template-columns:1fr}.price-grid{grid-template-columns:1fr;max-width:460px}.c4{grid-template-columns:repeat(2,1fr)}.flow{grid-template-columns:repeat(2,1fr)}.svc-block{grid-template-columns:1fr}}
+  @media(max-width:680px){section{padding:62px 0}.menu{position:fixed;top:70px;left:0;right:0;background:#fff;flex-direction:column;align-items:stretch;gap:0;padding:8px 0;border-bottom:1px solid var(--line);box-shadow:0 20px 40px -20px rgba(0,0,0,.3);transform:translateY(-130%);transition:transform .28s}.menu.open{transform:none}.menu a.link{padding:14px 24px;border-bottom:1px solid var(--line)}.menu .btn{margin:12px 24px}.burger{display:flex}.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}.burger.open span:nth-child(2){opacity:0}.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}.c3,.c4,.c2{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.company-table dl{grid-template-columns:1fr}.company-table dt{padding-bottom:4px}.hero{padding:120px 0 70px}}
+</style>
+</head>
+<body>
+
+<header id="top">
+  <div class="wrap nav">
+    <a href="#top" class="brand"><span class="mark">R</span><b>Regrow<span>業務自動化ツール開発</span></b></a>
+    <nav class="menu" id="menu">
+      <a class="link" href="#compare">他の選択肢と比較</a>
+      <a class="link" href="#service">作れるもの</a>
+      <a class="link" href="#results">実績</a>
+      <a class="link" href="#price">料金</a>
+      <a class="link" href="#faq">よくある質問</a>
+      <a class="link" href="column.html">コラム</a>
+      <a class="btn btn-primary" href="#contact">無料業務診断</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="メニュー"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="tagline"><span class="dot"></span>Regrow｜業務自動化ツール開発</span>
+      <h1>その毎日の手作業、<br><span class="hl">御社専用の<br>“自動化ツール”</span>に。</h1>
+      <p class="lead">転記・集計・メール・リマインド——繰り返しの手作業を、御社の業務にぴったり合わせたツールに変えます。Excel・スプレッドシートはそのままでOK。</p>
+      <div class="price-pill"><svg class="pill-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M4.2 7l2.6 1.5M17.2 15.5l2.6 1.5M4.2 17l2.6-1.5M17.2 8.5l2.6-1.5"/></svg>初期<b>5万円〜</b>／最短<b>1〜2週間</b>で納品　保守は月1万円〜（任意）</div>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#contact">無料業務診断を受ける →</a>
+        <a class="btn btn-outline" href="#results">実績を見る</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-photo" aria-hidden="true"></div>
+      <div class="ba-card">
+        <h3>こんな作業が、こう変わります（実例・目安）</h3>
+        <div class="ba-row"><span class="lab">請求書・領収書の処理</span><span class="val"><s>3時間</s>→ <b>10分</b></span></div>
+        <div class="ba-row"><span class="lab">商談後のカレンダー作成〜送付</span><span class="val"><s>15分</s>→ <b>2分</b></span></div>
+        <div class="ba-row"><span class="lab">ホームページ・LP制作</span><span class="val"><s>1ヶ月</s>→ <b>3日</b></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISION -->
+<section id="vision" class="vision">
+  <div class="wrap reveal">
+    <div class="vk">Our Vision</div>
+    <h2>AIを、<span class="hl">“一部の大企業のもの”</span>で<br>終わらせない。</h2>
+    <p class="v-lead">高額なコンサルや月額サービスは、大きな会社のためのもの。<br>本当は、町の会社や小さなお店ほど、毎日の“めんどうな作業”に時間を奪われています。<br>私たちは、その現場の手作業を——語るだけでなく、実際に手を動かして減らします。<br>「難しそう」を「もう任せていい」に変える。それが、Regrowの役目です。</p>
+    <div class="beliefs">
+      <div class="belief"><div class="bi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4.5 9.5V20h15V9.5"/><path d="M9.5 20v-5.5h5V20"/></svg></div><b>大企業より、小さな会社へ</b><span>取り残されがちな現場にこそ、AIの力を届けます。</span></div>
+      <div class="belief"><div class="bi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9l-3.8 3.8z"/></svg></div><b>提案より、実装を</b><span>コンサルで終わらせず、現場で本当に使われる道具だけを作ります。</span></div>
+      <div class="belief"><div class="bi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5s1.2 1.8 3.5 1.8 3.5-1.8 3.5-1.8"/><path d="M9 9.5h.01M15 9.5h.01"/></svg></div><b>難しくせず、いつものままで</b><span>新しい操作は覚えなくてOK。今の道具のまま、楽になってもらいます。</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Problem</div>
+      <h2>その作業、毎回“手”でやっていませんか？</h2>
+      <p>1日30分でも、1ヶ月で10時間。繰り返しの手作業は、ツールにやらせるのが一番安上がりです。</p>
+    </div>
+    <div class="cards c4">
+      <div class="prob reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="3" width="8" height="4" rx="1"/><path d="M16 5h2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2"/><path d="M9 12h6M9 16h4"/></svg></div><h4>コピペ・転記地獄</h4><p>メールやPDFから、Excel・スプシへ毎回手で転記している。</p></div>
+      <div class="prob reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M8 17v-5M13 17V8M18 17v-9"/></svg></div><h4>毎週・毎月の集計</h4><p>売上・勤怠・在庫…同じ集計とレポート作成を毎回手作業で。</p></div>
+      <div class="prob reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></svg></div><h4>定型メール・リマインド</h4><p>請求・督促・日程確認など、ほぼ同じ文面を毎回手で送信。</p></div>
+      <div class="prob reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5"/><path d="M15 9a4 4 0 0 0-5.7 0l-3 3A4 4 0 0 0 12 17.7l1.5-1.5"/></svg></div><h4>ツール間の橋渡し</h4><p>スプシ⇄メール⇄LINE⇄会計ソフト、間をつなぐのが全部人力。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section id="compare" class="bg-soft">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Compare</div>
+      <h2>開発会社？ サブスク？ SaaS？ それとも——</h2>
+      <p>「自動化したい」と思ったときの4つの選択肢。小さな会社に一番合うのはどれでしょう。</p>
+    </div>
+    <div class="vs-wrap reveal">
+      <table class="vs">
+        <thead>
+          <tr><th></th><th>開発会社に外注</th><th>サブスク型<br>AI支援サービス</th><th>市販のSaaSを契約</th><th>Regrow</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>費用</th><td class="haken">初期50万〜数百万円</td><td class="haken">月額11万円〜が相場</td><td class="haken">月額課金がずっと続く</td><td class="oma"><span class="good">初期5万円〜</span><br><small>（買い切り・保守は任意）</small></td></tr>
+          <tr><th>年間コスト目安</th><td class="haken">数百万円〜</td><td class="haken">132万円〜</td><td class="haken">数万〜数十万円</td><td class="oma"><span class="good">5〜30万円＋α</span></td></tr>
+          <tr><th>納期</th><td class="haken">数ヶ月</td><td class="haken">すぐ始まる<br><small>（ただし毎月続く）</small></td><td class="haken">即日（設定は自力）</td><td class="oma"><span class="good">最短1〜2週間</span></td></tr>
+          <tr><th>業務との相性</th><td class="haken">要件定義が大変</td><td class="haken">相談ベース（人に依存）</td><td class="haken">業務のほうをSaaSに合わせる</td><td class="oma">御社の業務に合わせて設計</td></tr>
+          <tr><th>覚えること</th><td class="haken">新システムの操作</td><td class="haken">—</td><td class="haken">新ツールの操作</td><td class="oma"><span class="good">なし</span><br><small>（Excel・スプシ等そのまま）</small></td></tr>
+          <tr><th>あとからの修正</th><td class="haken">都度見積もり・高額</td><td class="haken">契約中のみ対応</td><td class="haken">できない（仕様は固定）</td><td class="oma">保守内で対応<br><small>（月1万円〜・任意）</small></td></tr>
+          <tr><th>やめたあと</th><td class="haken">保守が切れる</td><td class="haken">支援が止まる</td><td class="haken">使えなくなる</td><td class="oma"><span class="good">ツールは御社の資産として残る</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="price-note" style="margin-top:14px">※各サービス形態の一般的な相場・仕様にもとづく比較です（2026年7月時点・当社調べ）。</p>
+  </div>
+</section>
+
+<!-- SERVICE -->
+<section id="service">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Service</div>
+      <h2>たとえば、こんなツールが作れます</h2>
+      <p>お使いのExcel・スプレッドシート・メール・LINEはそのまま。間の“手作業”だけをツールに置き換えます。</p>
+    </div>
+    <div class="cards c3">
+      <div class="prob reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h8l4 4v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg></div><h4>請求書・見積書の自動作成</h4><p>スプシに入力するだけでPDF作成〜メール送付まで自動で完了。</p></div>
+      <div class="prob reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 3-3 3 3 5-6"/></svg></div><h4>集計・レポートの自動化</h4><p>売上・勤怠・在庫データを自動集計し、毎週・毎月のレポートを自動生成。</p></div>
+      <div class="prob reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a7.5 7.5 0 0 1-10.9 6.7L4 20l1.8-4.9A7.5 7.5 0 1 1 20 11.5z"/></svg></div><h4>LINE公式アカウントの連携</h4><p>予約リマインド・シフト希望の収集・お知らせ配信をLINEで自動化（API連携対応）。</p></div>
+      <div class="prob reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m17 3 3 3-3 3"/><path d="M4 11v-1a3 3 0 0 1 3-3h13"/><path d="m7 21-3-3 3-3"/><path d="M20 13v1a3 3 0 0 1-3 3H4"/></svg></div><h4>転記・データ連携</h4><p>メール・PDF・フォームの内容をスプシへ自動転記。二重入力をゼロに。</p></div>
+      <div class="prob reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16.5" rx="2"/><path d="M16 3v3M8 3v3M3 9.5h18"/></svg></div><h4>シフト・予約の管理ツール</h4><p>希望収集から表の作成まで自動化。調整の手間を数分に。</p></div>
+      <div class="prob reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg></div><h4>定期実行の仕組み</h4><p>毎朝のデータ取得、月初の請求処理など、決まった仕事を全自動で。</p></div>
+    </div>
+    <p class="price-note" style="margin-top:22px">※ここにない業務もOK。「これ、自動化できる？」からご相談ください。</p>
+  </div>
+</section>
+
+<!-- ANXIETY -->
+<section id="anxiety" class="bg-soft">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Why us</div>
+      <h2>「AI、気になる。でも…」を、なくします</h2>
+      <p>中小企業がAI・ツール導入でつまずく“3つの不安”。私たちは、ここに正面から答えます。</p>
+    </div>
+    <div class="cards c3">
+      <div class="trust reveal">
+        <div class="q"><span class="mk">01</span>ツールを入れても、結局使いこなせない</div>
+        <div class="a"><span class="lead2">「使える状態」まで作ります。</span>操作レクチャー＋マニュアル付きで納品し、日々の操作は<b>「いつものExcel・スプシに入力するだけ」</b>に。分からなくなっても保守で対応。“導入して終わり”にはしません。</div>
+      </div>
+      <div class="trust hot reveal">
+        <div class="badge2">いちばん多いお悩み</div>
+        <div class="q"><span class="mk">02</span>AIで何ができて、いくらかかるか分からない</div>
+        <div class="a"><span class="lead2">最初に、数字で全部お見せします。</span>無料の業務診断で<b>「どの作業が・月◯時間・いくらで自動化できるか」</b>を先に提示。曖昧な見積もりや“やってみないと分からない”はありません。納得してから発注できます。</div>
+      </div>
+      <div class="trust reveal">
+        <div class="q"><span class="mk">03</span>顧客情報をAIに入れて、大丈夫？</div>
+        <div class="a"><span class="lead2">安全な土台から作ります。</span>学習にデータが使われない設定・アクセス管理・<b>「入れてOK／NGな情報」のルール表</b>まで整備。セキュリティの不安を解消してから、業務に組み込みます。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BAND -->
+<section class="band">
+  <div class="band-bg"></div>
+  <div class="wrap band-inner reveal">
+    <h2>その手作業、今月で最後にしませんか。</h2>
+    <p>30分の無料業務診断で、「どの作業がツール化でき、何時間浮くか」を数字でお見せします。診断だけのご利用も歓迎です。</p>
+    <a class="btn btn-primary" href="#contact">無料業務診断を受ける →</a>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section id="results">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Results</div>
+      <h2>こんな業務が、こう変わります（実例・目安）</h2>
+      <p>自動化すると、毎日の作業時間はここまで減らせます。代表的な例をご紹介します。</p>
+    </div>
+    <div class="cards c3">
+      <div class="result reveal">
+        <span class="who">経理・請求</span>
+        <div class="task">請求書・領収書の<br>金額転記＋ファイル整理</div>
+        <div class="ba"><s>3時間</s><span class="ar">→</span>10分</div>
+        <span class="cut">約94%削減</span>
+      </div>
+      <div class="result reveal">
+        <span class="who">日程調整</span>
+        <div class="task">商談獲得後のカレンダー作成<br>〜メール送付（1件あたり）</div>
+        <div class="ba"><s>15分</s><span class="ar">→</span>2分</div>
+        <span class="cut">約87%削減</span>
+      </div>
+      <div class="result reveal">
+        <span class="who">HP・LP制作</span>
+        <div class="task">ホームページ・LPの<br>制作〜公開</div>
+        <div class="ba"><s>1ヶ月</s><span class="ar">→</span>3日</div>
+        <span class="cut">約90%短縮</span>
+      </div>
+    </div>
+    <p class="price-note">※作業時間の目安です。実際の効果は業務内容・件数により異なります。</p>
+  </div>
+</section>
+
+<!-- SIMULATOR -->
+<section id="simulator" class="bg-soft">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Simulation</div>
+      <h2>ツール代、何ヶ月で元が取れる？</h2>
+      <p>手作業の時間と時給を動かすと、年間の削減額と回収期間がその場で分かります。</p>
+    </div>
+    <div class="sim-box reveal">
+      <div class="sim-row">
+        <label>ツール化したい手作業（月間）<output id="simHoursOut">20時間</output></label>
+        <input type="range" id="simHours" min="5" max="100" step="5" value="20">
+      </div>
+      <div class="sim-row">
+        <label>作業している人の時給換算<output id="simRateOut">2,000円</output></label>
+        <input type="range" id="simRate" min="1000" max="5000" step="250" value="2000">
+      </div>
+      <div class="sim-result">
+        <div class="lab">この手作業をツール化すると…</div>
+        <div class="big" id="simSaving">年間 48万円 分の作業を削減</div>
+        <div class="sub" id="simDetail">開発費15万円（スタンダード）なら約4ヶ月で回収。以降はずっと浮き続けます。</div>
+      </div>
+      <p class="sim-note">※ 概算シミュレーションです。実際の削減時間・開発費は無料業務診断でご提示します。</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICE -->
+<section id="price">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Price</div>
+      <h2>料金プラン</h2>
+      <p>作るツールの規模で選べる3プラン＋任意の保守。すべて買い切り、月額の縛りはありません。</p>
+    </div>
+    <div class="price-grid">
+      <div class="price-card reveal">
+        <div class="tag">Mini</div>
+        <div class="amt">5万円<small>〜/単発</small></div>
+        <div class="note">単機能のミニ開発。まずはお試しに。</div>
+        <ul>
+          <li><span class="ck">✓</span>自動化ツール：1機能（転記・集計など）</li>
+          <li><span class="ck">✓</span>操作レクチャー＋マニュアル</li>
+          <li><span class="ck">✓</span>納品後2週間の無償修正</li>
+        </ul>
+        <a class="btn btn-outline" href="#contact">相談する</a>
+      </div>
+      <div class="price-card featured reveal">
+        <div class="rec">いちばん人気</div>
+        <div class="tag">Standard</div>
+        <div class="amt">15万円<small>〜/単発</small></div>
+        <div class="note">複数機能・連携ありの業務ツール開発。</div>
+        <ul>
+          <li><span class="ck">✓</span>複数機能・ツール間連携OK</li>
+          <li><span class="ck">✓</span>業務ヒアリング〜設計込み</li>
+          <li><span class="ck">✓</span>操作レクチャー＋マニュアル</li>
+          <li><span class="ck">✓</span>納品後1ヶ月の無償修正</li>
+        </ul>
+        <a class="btn btn-primary" href="#contact">このプランで相談</a>
+      </div>
+      <div class="price-card reveal">
+        <div class="tag">Marugoto</div>
+        <div class="amt">30万円<small>〜/単発</small></div>
+        <div class="note">複数業務をまるごと自動化＋ダッシュボード。</div>
+        <ul>
+          <li><span class="ck">✓</span>複数業務の一括自動化</li>
+          <li><span class="ck">✓</span>業務の見える化ダッシュボード</li>
+          <li><span class="ck">✓</span>スタッフ向け説明会つき</li>
+          <li><span class="ck">✓</span>納品後2ヶ月の無償修正</li>
+        </ul>
+        <a class="btn btn-outline" href="#contact">相談する</a>
+      </div>
+    </div>
+    <div class="price-banner reveal">月額サブスク型の支援（相場：月11万円〜＝年132万円〜）と違い、費用は<span>作るときだけ</span>。ツールはお客様の資産になります。保守は月1万円〜（任意・いつでも解約OK）。</div>
+    <p class="price-note">※開発会社の相場（数十万〜数百万円）より大幅に抑えられるのは、最新AIを開発に活用し工数を圧縮しているためです。品質・セキュリティの確認は人間が行います。</p>
+  </div>
+</section>
+
+<!-- FLOW -->
+<section id="flow" class="bg-soft">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Flow</div>
+      <h2>ご利用の流れ</h2>
+      <p>診断から納品まで、最短2週間。オンラインで完結します。</p>
+    </div>
+    <div class="flow">
+      <div class="step reveal"><div class="n"></div><h4>無料業務診断（30分）</h4><p>面倒な作業をお聞きし、ツール化できるか・何時間浮くかを診断。</p></div>
+      <div class="step reveal"><div class="n"></div><h4>ご提案・お見積り</h4><p>ツールの内容・開発費・削減見込みを提示。納得してから発注。</p></div>
+      <div class="step reveal"><div class="n"></div><h4>開発（1〜2週間）</h4><p>御社の業務に合わせて開発。途中経過も随時共有します。</p></div>
+      <div class="step reveal"><div class="n"></div><h4>納品・レクチャー</h4><p>マニュアル付きで納品、操作をレクチャー。希望者は保守で継続改善。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">FAQ</div>
+      <h2>よくあるご質問</h2>
+      <p>はじめての方でも安心してご利用いただけるよう、よくある質問をまとめました。</p>
+    </div>
+    <div class="faq-list reveal">
+      <details class="faq-item"><summary>AIにくわしくないのですが、大丈夫ですか？</summary><div class="faq-a">はい。むしろ「何から始めれば分からない」方のためのサービスです。専門用語は使わず、あなたの業務に合わせて一つずつ一緒に進めます。</div></details>
+      <details class="faq-item"><summary>顧客情報や数字をAIに入れて、情報漏れは大丈夫？</summary><div class="faq-a">導入時に、学習にデータが使われない設定・アクセス管理・「入れてよい情報／ダメな情報」のルールづくりまで対応します。安全な使い方の土台を整えてからスタートします。</div></details>
+      <details class="faq-item"><summary>どんな作業を自動化できますか？</summary><div class="faq-a">請求書・領収書の転記、メールや文書の下書き、シフトや集計などの定型計算、資料作成の下準備など。まずは無料相談で「あなたの業務のどこが楽になるか」を一緒に見つけます。</div></details>
+      <details class="faq-item"><summary>納品後、自分たちだけで使えますか？</summary><div class="faq-a">はい。専門知識がなくても使えるように作り、マニュアルと操作レクチャー付きで納品します。日々の操作は「いつものスプレッドシートに入力するだけ」といった形に落とし込みます。</div></details>
+      <details class="faq-item"><summary>あとから修正・機能追加はできますか？</summary><div class="faq-a">できます。納品後の無償修正期間（プランにより2週間〜2ヶ月）に加え、月1万円〜の保守サポート（任意・いつでも解約可）で小さな修正や「これも自動化したい」に継続対応します。</div></details>
+      <details class="faq-item"><summary>経理もお願いできますか？</summary><div class="faq-a">記帳・経費入力・資料整理などの事務代行や、税理士さんへの連携対応は可能です。ただし税務書類の作成・税務相談は行わず、必要に応じて税理士へおつなぎします。</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Contact</div>
+      <h2>まずは無料の業務診断から</h2>
+      <p>オンライン30分。「どの業務を、どれだけ減らせるか」を数字でお見せします。診断だけでもOKです。</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <div class="ci-card"><div class="lab">受付時間</div><div class="val small"><span class="ph">【要差し替え：平日 10:00〜19:00】</span></div></div>
+        <div class="ci-card"><div class="lab">対応エリア</div><div class="val small">全国対応（オンライン完結）</div></div>
+      </div>
+      <form class="cf reveal" id="contactForm">
+        <div class="field"><label>お名前<span class="req">必須</span></label><input type="text" id="cf-name" required placeholder="山田 太郎"></div>
+        <div class="field"><label>会社名・店舗名</label><input type="text" id="cf-company" placeholder="株式会社サンプル／〇〇店"></div>
+        <div class="field"><label>メールアドレス<span class="req">必須</span></label><input type="email" id="cf-email" required placeholder="example@company.co.jp"></div>
+        <div class="field"><label>ご相談内容<span class="req">必須</span></label><textarea id="cf-message" required placeholder="例：毎月の請求書作成とメール送付を自動化したい／この作業って自動化できますか？"></textarea></div>
+        <button type="submit" class="btn btn-primary">無料業務診断を申し込む</button>
+        <p class="privacy">いただいた内容は、お問い合わせ対応のみに利用します。</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand"><b>Regrow</b><p>毎日の手作業を、御社専用の自動化ツールに変える業務自動化ツール開発サービス。</p></div>
+      <nav class="foot-nav">
+        <a href="#service">サービス</a><a href="#results">実績</a><a href="#price">料金</a><a href="#faq">よくある質問</a><a href="column.html">コラム</a><a href="#contact">お問い合わせ</a>
+      </nav>
+    </div>
+    <div class="foot-bottom">© 2025 Regrow. All rights reserved.</div>
+  </div>
+</footer>
+
+<div class="float-cta"><a class="btn btn-primary" href="#contact">無料相談</a></div>
+
+<script>
+  const header=document.getElementById('top');
+  addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>10));
+  const burger=document.getElementById('burger'),menu=document.getElementById('menu');
+  burger.addEventListener('click',()=>{burger.classList.toggle('open');menu.classList.toggle('open')});
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{burger.classList.remove('open');menu.classList.remove('open')}));
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  const cf=document.getElementById('contactForm');
+  cf.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    const name=document.getElementById('cf-name').value.trim();
+    const company=document.getElementById('cf-company').value.trim();
+    const email=document.getElementById('cf-email').value.trim();
+    const message=document.getElementById('cf-message').value.trim();
+    const subject=`【Regrow・無料業務診断】${company||name} 様`;
+    const body=`お名前：${name}\n会社名・店舗名：${company}\nメールアドレス：${email}\n\n―――――――――――――――\nご相談内容：\n${message}\n`;
+    window.location.href=`mailto:hachimituboy0127@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+
+  // ROI simulator（ツール開発の回収期間）
+  const simHours=document.getElementById('simHours'),simRate=document.getElementById('simRate');
+  const simHoursOut=document.getElementById('simHoursOut'),simRateOut=document.getElementById('simRateOut');
+  const simSaving=document.getElementById('simSaving'),simDetail=document.getElementById('simDetail');
+  function simUpdate(){
+    const hours=+simHours.value, rate=+simRate.value;
+    simHoursOut.textContent=`${hours}時間`;
+    simRateOut.textContent=`${rate.toLocaleString()}円`;
+    const monthly=hours*rate, annual=monthly*12;
+    const dev = annual>=300000 ? 150000 : 50000;
+    const devName = dev===150000 ? 'スタンダード開発 15万円' : 'ミニ開発 5万円';
+    const payback = Math.max(1, Math.ceil(dev/monthly));
+    simSaving.innerHTML=`年間 <span>${Math.round(annual/10000)}万円</span> 分の作業を削減`;
+    simDetail.textContent=`開発費（${devName}）なら約${payback}ヶ月で回収。以降はずっと浮き続けます。`;
+  }
+  simHours.addEventListener('input',simUpdate);
+  simRate.addEventListener('input',simUpdate);
+  simUpdate();
+</script>
+</body>
+</html>
