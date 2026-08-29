@@ -88,3 +88,4 @@ footer{background:#fff;border-top:1px solid var(--line);padding:44px 0 30px;colo
 .foot-copy{text-align:center;font-size:12px;color:var(--muted);margin-top:24px;border-top:1px solid var(--line);padding-top:20px}
 
 @media(max-width:860px){.col-grid{grid-template-columns:1fr;gap:20px}.related-list{grid-template-columns:1fr}}
+.post .thumb.g{background:linear-gradient(135deg,#5a8f9c,#8ec6cd 55%,#f4b7ac)}
