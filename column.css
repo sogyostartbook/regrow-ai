@@ -63,6 +63,10 @@ article.post-body p{margin-bottom:18px}
 article.post-body ul,article.post-body ol{margin:0 0 20px 1.4em}
 article.post-body li{margin-bottom:8px}
 article.post-body strong{color:var(--navy);font-weight:700}
+article.post-body table{width:100%;border-collapse:collapse;margin:0 0 28px;font-size:14px;box-shadow:var(--shadow-sm);border-radius:12px;overflow:hidden}
+article.post-body th,article.post-body td{padding:12px 16px;border-bottom:1px solid var(--line);text-align:left}
+article.post-body thead th{background:var(--bg-soft);color:var(--navy);font-weight:700}
+article.post-body tbody tr:last-child td{border-bottom:none}
 article.post-body .callout{background:var(--bg-soft);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:12px;padding:20px 24px;margin:28px 0;font-size:15px}
 article.post-body .callout b{color:var(--navy)}
 .cta-box{background:linear-gradient(135deg,#e6f6f8,#fdeeed);border:1px solid var(--line);border-radius:18px;padding:32px;text-align:center;margin:44px 0}
